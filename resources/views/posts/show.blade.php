@@ -15,7 +15,7 @@
                         <img src="{{ $post->img_url }}" class=" rounded-xl max-w-full h-auto " alt="{{ $post->img_alt_text }}"/>
                     </div>
                     @endif
-                    {{ $post->p_content }}
+                    {{$post->content }}
                     <!-- <div class="p-4 bg-white border-b border-gray-200">
                         Post details go here:
                     </div> -->
@@ -36,6 +36,13 @@
                             {{ $post->language_id }} unique post views to date.
                         </span>
                     </span>
+                    <a href=" {{ route( 'posts.edit', [ 'id' => $post->id ] ) }} ">
+                    <span class="ml-3 rounded-2xl bg-blue-50 px-3 py-0.5">
+                        <span class="text-sm text-blue-500"> 
+                                Edit
+                            </span>
+                        </span>
+                    </a>
 
                 </div>
                 <form action="" method="post"></form>

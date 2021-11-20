@@ -56,12 +56,16 @@ class PostController extends Controller
             // $path = $request->file('image')->storeAs('public/uploads', $fileNameToStore);
             $request->image->move(public_path('uploads'),$fileNameToStore);
             }
+            else{
+                $fileNameToStore=null;
+                $filename=null;
+            }
 
         $post = new Post;
-        $post->p_content = $validData['content'];
+        $post->content = $validData['content'];
         $post->is_edited = false;
-        $post->img_url = '/uploads/'.$fileNameToStore;
-        $post->img_alt_text = 'an image named '.$filename;
+        $post->img_url = $fileNameToStore==null?null:'/uploads/'.$fileNameToStore;
+        $post->img_alt_text = $filename==null?null:'an image named '.$filename;
         $post->user_id = 1;
         $post->language_id = 3;
         $post->save();
@@ -90,7 +94,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -102,7 +107,40 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request['p_content']); it works
+        $validData = $request->validate([
+            'content' => 'required|max:200',
+            'image'=>'image|nullable|mimes:jpg,jpeg,png|max:5000'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName ();
+            // Get Filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just Extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename To store
+            $fileNameToStore = $filename. '_'. time().'.'.$extension;
+            // Upload Image
+            // $path = $request->file('image')->storeAs('public/uploads', $fileNameToStore);
+            $request->image->move(public_path('uploads'),$fileNameToStore);
+        }
+        else{
+            $fileNameToStore=null;
+            $filename=null;
+        }
+
+        $post = Post::findOrFail($id);
+        $post->content = $validData['content'];
+        $post->is_edited = true;
+        if($filename!=null){
+            $post->img_url = '/uploads/'.$fileNameToStore;
+            $post->img_alt_text = 'an image named '.$filename;
+        }
+        $post->update();
+
+        session()->flash('message', 'Yay, your post was created!');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -113,6 +151,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index');
     }
+
+
 }

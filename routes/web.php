@@ -28,5 +28,8 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index'); //g
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create'); //page to create new post
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); //store the new post
 
-//below should be absolute last
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //should come last not to hijack longer links
+//below should be absolute last so as not to hijack longer links
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //show particular post details
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit'); //edit a post
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update'); //store updated post details
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy'); //delete the post

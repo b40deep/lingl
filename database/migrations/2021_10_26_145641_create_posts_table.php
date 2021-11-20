@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->boolean('is_edited');
             $table->string('img_url')->nullable();
             $table->string('img_alt_text')->nullable();
-            $table->longText('p_content');
+            $table->longText('content');
             #FKeys user_id lang_id
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('language_id', $autoIncrement = false)->unsigned();

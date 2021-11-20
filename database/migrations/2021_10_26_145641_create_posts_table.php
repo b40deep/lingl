@@ -17,9 +17,9 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             #added by b40deep
-            $table->boolean('isEdited');
-            $table->string('img_url');
-            $table->string('img_alt_text');
+            $table->boolean('is_edited');
+            $table->string('img_url')->nullable();
+            $table->string('img_alt_text')->nullable();
             $table->longText('p_content');
             #FKeys user_id lang_id
             $table->bigInteger('user_id')->unsigned();

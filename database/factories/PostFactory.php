@@ -23,10 +23,15 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $x = $this->faker->randomElement([600, 400]);
+        $y = $this->faker->randomElement([600, 400]);
+        $link = $this->faker->imageUrl($x, $y, null, false, 'soli deo gloria', false);
+        $url = $this->faker->randomElement([$link, null]);
+        
         return [
-            'isEdited'  => $this->faker->boolean(),
-            'img_url'  => $this->faker->imageUrl(20,20,'faces'),
-            'img_alt_text' => $this->faker->sentence(),
+            'is_edited'  => $this->faker->boolean(),
+            'img_url'  => $url,
+            'img_alt_text' => $url==null ? null : $this->faker->realText($maxNbChars = 40),
             'p_content'  => $this->faker->realText($maxNbChars = 200),
             // 'user_id'  => $this->faker->numberBetween(1,5),
             'user_id'  => User::factory(),

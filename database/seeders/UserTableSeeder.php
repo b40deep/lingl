@@ -16,6 +16,20 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        //superuser
+        User::create([
+            'name' => 'Super User',
+            'email' => 'super@user.test',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$WfwoVT4cqvTOsOqr9uoqo.1zZc8lXcnEmwEn7O09ZuUTYw/YWchyK', // 12345678
+            'remember_token' => 'toktoktokn',
+            #added by b40deep
+            'role' => 'admin',
+            'avatar_url' => 'https://i.picsum.photos/id/1010/300/300.jpg',
+            #Fkeys
+            'language_id' => '2',
+        ]);
+
         User::factory()
                 ->count(5)
                 ->create()
@@ -23,5 +37,6 @@ class UserTableSeeder extends Seeder
                     $user->posts()->saveMany(Post::factory()->count(5)->create());
                     $user->comments()->saveMany(Comment::factory()->count(10)->create());
                 });
+        
     }
 }

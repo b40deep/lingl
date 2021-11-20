@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
+
 class PostController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +38,36 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request['p_content']); it works
+        $validData = $request->validate([
+            'content' => 'required|max:200',
+            'image'=>'image|nullable|mimes:jpg,jpeg,png|max:5000'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName ();
+            // Get Filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just Extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename To store
+            $fileNameToStore = $filename. '_'. time().'.'.$extension;
+            // Upload Image
+            // $path = $request->file('image')->storeAs('public/uploads', $fileNameToStore);
+            $request->image->move(public_path('uploads'),$fileNameToStore);
+            }
+
+        $post = new Post;
+        $post->p_content = $validData['content'];
+        $post->is_edited = false;
+        $post->img_url = '/uploads/'.$fileNameToStore;
+        $post->img_alt_text = 'an image named '.$filename;
+        $post->user_id = 1;
+        $post->language_id = 3;
+        $post->save();
+
+        session()->flash('message', 'Yay, your post was created!');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -48,7 +78,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**

@@ -27,7 +27,7 @@ class PostFactory extends Factory
             'isEdited'  => $this->faker->boolean(),
             'img_url'  => $this->faker->imageUrl(20,20,'faces'),
             'img_alt_text' => $this->faker->sentence(),
-            'p_content'  => $this->faker->paragraph(5),
+            'p_content'  => $this->faker->realText($maxNbChars = 200),
             // 'user_id'  => $this->faker->numberBetween(1,5),
             'user_id'  => User::factory(),
             'language_id'  => Language::get()->random()->id,

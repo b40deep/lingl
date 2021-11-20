@@ -22,10 +22,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             #added by b40deep
-            $table->string('role');
-            $table->string('avatar_url');
+            $table->string('role')->nullable();
+            $table->string('avatar_url')->nullable();
             #Fkeys
-            $table->bigInteger('language_id')->unsigned();
+            $table->bigInteger('language_id')->unsigned()->nullable();
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');
             
         });

@@ -48,6 +48,26 @@
 
                 <!-- Comments section-->
 
+                <div id="comments">
+                    <ul><li v-for="comment in comments">@{{ comment['content'] }} by @{{ comment['user_id'] }} </li></ul>
+                </div>
+                <script>
+                    var app = new Vue({
+                        el: "#comments",
+                        data: {
+                            comments: [],
+                        },
+                        mounted(){
+                            axios.get("{{ route( 'api.comments.index' , [ 'post' => $post ] ) }}")
+                                        .then(response=>{
+                                            this.comments = response.data;
+                                        })
+                                        .catch(response=>{
+                                            console.log(response);
+                                        })
+                                }
+                        });
+                </script>
 
                 <!-- Leave a Comment-->
 

@@ -36,7 +36,7 @@
                             {{ $post->language_id }} unique post views to date.
                         </span>
                     </span>
-                    <a href=" {{ route( 'posts.edit', [ 'id' => $post->id ] ) }} ">
+                    <a href=" {{ route( 'posts.edit', [ 'post' => $post ] ) }} ">
                     <span class="ml-3 rounded-2xl bg-blue-50 px-3 py-0.5">
                         <span class="text-sm text-blue-500"> 
                                 Edit
@@ -52,7 +52,7 @@
                 <!-- Leave a Comment-->
 
                 <div class="p-6 bg-white border-b border-gray-200">
-                <form action=" {{ route( 'comments.store' ) }}" method="post" enctype="multipart/form-data">
+                <form action=" {{ route( 'comments.store', [ 'post' => $post ] ) }}" method="post" enctype="multipart/form-data">
                        @csrf
                        <!-- class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none    focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" -->
                         <!-- <input type="submit" value="Send to the community!">

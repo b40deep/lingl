@@ -33,7 +33,7 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 
 //below should be absolute last so as not to hijack longer links
 // routes must always come BEFORE variables. e.g., posts/create before posts/{id}
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //show particular post details
-Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit'); //edit a post
-Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update'); //store updated post details
-Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy'); //delete the post
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //show particular post details
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit'); //edit a post
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update'); //store updated post details
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy'); //delete the post

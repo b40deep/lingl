@@ -80,9 +80,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         return view('posts.show', ['post' => $post]);
     }
 
@@ -92,9 +92,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -105,7 +105,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         // dd($request['p_content']); it works
         $validData = $request->validate([
@@ -130,7 +130,7 @@ class PostController extends Controller
             $filename=null;
         }
 
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         $post->content = $validData['content'];
         $post->is_edited = true;
         if($filename!=null){
@@ -139,7 +139,7 @@ class PostController extends Controller
         }
         $post->update();
 
-        session()->flash('message', 'Yay, your post was created!');
+        session()->flash('message', 'Yay, your post was udpated!');
         return redirect()->route('posts.index');
     }
 
@@ -149,9 +149,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
         $post->delete();
 
         return redirect()->route('posts.index');

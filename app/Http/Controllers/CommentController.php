@@ -50,7 +50,8 @@ class CommentController extends Controller
         $comment->save();
 
         session()->flash('message', 'Thank you for your translation!');
-        return redirect()->route( 'posts.show', ['id' => 3]);  // need to update this 
+        // return redirect()->route( 'posts.show', ['id' => 3]);  // need to update this 
+        return redirect()->route( 'posts.index');  
         
     }
 

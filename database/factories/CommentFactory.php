@@ -24,8 +24,8 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'isEdited'  => $this->faker->boolean(),
-            'c_content'  => $this->faker->paragraph(),
+            'is_edited'  => $this->faker->boolean(),
+            'content'  => $this->faker->paragraph(),
             #Fkeys
             'post_id'  => Post::get()->random()->id,
             'user_id'  => User::factory(),

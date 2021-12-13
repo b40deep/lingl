@@ -27,6 +27,31 @@
                 </div>
             </header>
 
+            <!--Boyd added-->
+            <div class="pt-5">
+                @if ($errors->any())
+                    <div class="max-w-7xl mx-auto  sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            @foreach ($errors->all() as $error)
+                            <div class="bg-red-100 relative text-red-700 py-3 px-3 rounded-lg">
+                                {{ $error }}
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                @if (session('message'))
+                    <div class="max-w-7xl mx-auto  sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="bg-green-100 relative text-green-700 py-3 px-3 rounded-lg">
+                                {{ session('message') }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}

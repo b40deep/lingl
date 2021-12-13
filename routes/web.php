@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,10 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index'); //g
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create'); //page to create new post
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); //store the new post
 
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store'); //ask controller to store new comment
+
 //below should be absolute last so as not to hijack longer links
+// routes must always come BEFORE variables. e.g., posts/create before posts/{id}
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); //show particular post details
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit'); //edit a post
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update'); //store updated post details

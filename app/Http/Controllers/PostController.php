@@ -38,7 +38,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request['p_content']); it works
+        // dd($request['content']); it works
         $validData = $request->validate([
             'content' => 'required|max:200',
             'image'=>'image|nullable|mimes:jpg,jpeg,png|max:5000'

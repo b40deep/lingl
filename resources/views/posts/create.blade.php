@@ -6,28 +6,6 @@
     </x-slot>
 
     <div class="py-12">
-        @if ($errors->any())
-            <div class="max-w-7xl mx-auto pb-5 sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    @foreach ($errors->all() as $error)
-                    <div class="bg-red-200 relative text-red-500 py-3 px-3 rounded-lg">
-                        {{ $error }}
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        @if (session('message'))
-            <div class="max-w-7xl mx-auto pb-5 sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="bg-green-200 relative text-green-500 py-3 px-3 rounded-lg">
-                        {{ session('message') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">

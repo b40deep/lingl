@@ -17,8 +17,8 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             #added by b40deep
-            $table->boolean('isEdited');
-            $table->longText('c_content');
+            $table->boolean('is_edited');
+            $table->longText('content');
             #FKeys post_id user_id lang_id
             $table->bigInteger('post_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();

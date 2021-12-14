@@ -30,7 +30,8 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             #added by b40deep
-            'role' => $this->faker->randomElement(['admin', 'user', 'guest']),
+            // 'is_admin' => $this->faker->randomElement(['admin', 'user', 'guest']),
+            'is_admin' => $this->faker->numberBetween(0,1),
             'avatar_url' => $this->faker->imageUrl(20,20,'faces'),
             #Fkeys
             'language_id' => Language::get()->random()->id,

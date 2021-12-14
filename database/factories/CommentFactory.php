@@ -28,7 +28,8 @@ class CommentFactory extends Factory
             'content'  => $this->faker->paragraph(),
             #Fkeys
             'post_id'  => Post::get()->random()->id,
-            'user_id'  => User::factory(),
+            // 'post_id'  => Post::factory(),
+            'user_id'  => User::get()->random()->id,
             // 'user_id'  => $this->faker->numberBetween(1,5),
         ];
     }

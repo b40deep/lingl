@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             #added by b40deep
-            $table->string('role')->nullable();
+            $table->string('is_admin')->nullable();
             $table->string('avatar_url')->nullable();
             #Fkeys
             $table->bigInteger('language_id')->unsigned()->nullable();

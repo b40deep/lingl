@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // b40deep added gates here
+        Gate::define( 'comments_edit', fn(\App\Models\User $user) => $user->is_admin );
+        Gate::define( 'posts_edit', fn(\App\Models\User $user, \App\Models\Post $post) => $user->is_admin || $post->user_id == auth()->id() );
     }
 }

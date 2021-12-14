@@ -34,7 +34,8 @@ class PostFactory extends Factory
             'img_alt_text' => $url==null ? null : $this->faker->realText($maxNbChars = 40),
             'content'  => $this->faker->realText($maxNbChars = 200),
             // 'user_id'  => $this->faker->numberBetween(1,5),
-            'user_id'  => User::factory(),
+            // 'user_id'  => User::factory(),
+            'user_id'  => User::get()->random()->id,
             'language_id'  => Language::get()->random()->id,
         ];
     }

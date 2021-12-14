@@ -107,7 +107,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        // dd($request['p_content']); it works
+        // dd($request['p_content']); it works        
         $validData = $request->validate([
             'content' => 'required|max:200',
             'image'=>'image|nullable|mimes:jpg,jpeg,png|max:5000'

@@ -36,6 +36,7 @@
                             {{ $post->language_id }} unique post views to date.
                         </span>
                     </span>
+                    @can('posts_edit', $post)
                     <a href=" {{ route( 'posts.edit', [ 'post' => $post ] ) }} ">
                     <span class="ml-3 rounded-2xl bg-blue-50 px-3 py-0.5">
                         <span class="text-sm text-blue-500"> 
@@ -43,7 +44,7 @@
                             </span>
                         </span>
                     </a>
-
+                    @endcan
                 </div>
 
                 <!-- Comments section-->

@@ -48,14 +48,19 @@
 
                 <!-- Comments section-->
 
-                <div id="comments">
+                <div id="comments" class="p-6 bg-white border-b border-gray-200">
                     <ul><li v-for="comment in comments">@{{ comment['content'] }} by @{{ comment['user_id'] }} </li></ul>
+                    <label for="content" class="text-gray-600 font-light">Leave a translation</label>
+                    <input v-model="newComment" name="content" value="{{ old('content') }}" type='text' placeholder="don't be shy..." class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-500" />
+                    <button v-on:click="createComment" class="bg-blue-600 text-gray-200 rounded-xl hover:bg-blue-500 focus:outline-none px-4 py-2 ">Send translation!</button>
+                    <a href=" {{ route( 'posts.index' ) }} " type="button" class="border border-gray-400 text-gray-600 hover:bg-gray-600 hover:text-gray-100 rounded-xl px-4 py-2 ml-3">Maybe next time...</a>
                 </div>
                 <script>
                     var app = new Vue({
                         el: "#comments",
                         data: {
                             comments: [],
+                            newComment: '',
                         },
                         mounted(){
                             axios.get("{{ route( 'api.comments.index' , [ 'post' => $post ] ) }}")
@@ -65,24 +70,39 @@
                                         .catch(response=>{
                                             console.log(response);
                                         })
+                                },
+                        methods:{
+                            createComment:function(){
+                                axios.post("{{ route( 'api.comments.store' , [ 'post' => $post ] ) }}",
+                                        {
+                                            content:this.newComment
+                                        })
+                                        .then(response=>{                                            
+                                            this.comments.push(response.data);
+                                            this.newComment='';
+                                        })
+                                        .catch(response=>{
+                                            console.log(response);
+                                        })
                                 }
+                            }
                         });
                 </script>
 
                 <!-- Leave a Comment-->
 
-                <div class="p-6 bg-white border-b border-gray-200">
+                <!-- <div class="p-6 bg-white border-b border-gray-200">
                 <form action=" {{ route( 'comments.store', [ 'post' => $post ] ) }}" method="post" enctype="multipart/form-data">
-                       @csrf
+                       @csrf -->
                        <!-- class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none    focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" -->
                         <!-- <input type="submit" value="Send to the community!">
                         <a href=" {{ route( 'posts.index' ) }} ">Maybe next time...</a> --> 
-                        <label for="content" class="text-gray-600 font-light">Leave a translation</label>
+                        <!-- <label for="content" class="text-gray-600 font-light">Leave a translation</label>
                         <input name="content" value="{{ old('content') }}" type='text' placeholder="don't be shy..." class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-500" />
                         <input class="bg-blue-600 text-gray-200 rounded-xl hover:bg-blue-500 focus:outline-none px-4 py-2 "  type="submit" value="Send translation!"/>
                         <a href=" {{ route( 'posts.index' ) }} " type="button" class="border border-gray-400 text-gray-600 hover:bg-gray-600 hover:text-gray-100 rounded-xl px-4 py-2 ml-3">Maybe next time...</a>
                    </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

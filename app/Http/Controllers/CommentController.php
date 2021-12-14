@@ -124,4 +124,27 @@ class CommentController extends Controller
         // Log::info($comments[0]['user_id']);
         return $comments;
     }
+
+    public function apiStore(Request $request){
+        // Log::info('we got this far');
+        // Log::info($request['post']. $request['content']);
+        // Log::info($request['content']);
+        
+        $validData = $request->validate([
+            'content' => 'required|max:200'
+        ]);
+        
+        $comment = new Comment;
+        $comment->content = $validData['content'];
+        $comment->is_edited = false;
+        $comment->post_id = $request['post']; // need to update this
+        $comment->user_id = 1; // need to update this 
+        $comment->save();
+
+        session()->flash('message', 'Thank you for your AJAX translation!');
+        $comment['user_id'] = User::findOrFail($comment['user_id'])->name;
+
+        return $comment;
+        
+    }
 }

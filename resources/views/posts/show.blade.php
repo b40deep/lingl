@@ -56,7 +56,7 @@
                     <ul v-for="comment in comments">
                         <li :key="comment['id']">@{{ comment['content'] }} by <span id="user"> @{{ comment['user_id'] }} </span>
                         <span v-if="hasAccess(comment['user_id'],'{{auth()->user()->name}}')">
-                            <a v-on:click="editComment(comment['id'])" href="#comments">
+                            <a v-on:click="editComment(comment['content'], comment['id'])" href="#comments">
                                 <span class="ml-3 rounded-2xl bg-red-50 px-3 py-0.5">
                                     <span class="text-sm text-red-500"> 
                                         Edit
@@ -84,6 +84,7 @@
                         data: {
                             comments: [],
                             newComment: '',
+                            edited:'',
                         },
                         mounted(){
                             this.getComments()
@@ -93,6 +94,7 @@
                                 axios.get("{{ route( 'api.comments.index' , [ 'post' => $post] ) }}")
                                             .then(response=>{
                                                 this.comments = response.data;
+                                                this.edited='';
                                             })
                                             .catch(response=>{
                                                 console.log(response);
@@ -102,18 +104,23 @@
                                 axios.post("{{ route( 'api.comments.store' , [ 'post' => $post ] ) }}",
                                         {
                                             content:this.newComment,
-                                            user:uid
+                                            user:uid,
+                                            edited:this.edited
                                         })
                                         .then(response=>{                                            
-                                            this.comments.push(response.data);
+                                            // this.comments.push(response.data);
+                                            this.getComments()
                                             this.newComment='';
+                                            this.edited='';
                                         })
                                         .catch(response=>{
                                             console.log(response);
                                         })
                                 },
-                            editComment:function(commentx){
-                                        alert('edit comment'+ commentx);
+                            editComment:function(editable,cid){
+                                        // alert('edit comment'+ editable);
+                                        this.newComment=editable;
+                                        this.edited=cid;
                                 },
                             deleteComment:function(commentx){
                                         // alert('delete comment'+ commentx);
@@ -125,6 +132,7 @@
                                             // console.log(response.data);
                                             // console.log(response);
                                             response ? this.getComments() : null;
+                                            this.edited='';
                                         })
                                         .catch(response=>{
                                             console.log(response);

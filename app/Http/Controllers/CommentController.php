@@ -136,21 +136,31 @@ class CommentController extends Controller
         // Log::info('we got this far');
         // Log::info($request['post']. $request['content']);
         // Log::info('user '.$request['user']);
+        $edited = $request['edited']==''?false:true;
+        Log::info('comment update status '.$edited);
         
         $validData = $request->validate([
             'content' => 'required|max:200'
         ]);
-        
-        $comment = new Comment;
-        $comment->content = $validData['content'];
-        $comment->is_edited = false;
-        $comment->post_id = $request['post']; // fixed
-        $comment->user_id = $request['user']; // fixed
-        $comment->save();
 
-        session()->flash('message', 'Thank you for your AJAX translation!');
-        $comment['user_id'] = User::findOrFail($comment['user_id'])->name;
+        if($edited){
+            Log::info('comment will be updated');
+            $comment = Comment::findOrFail($request['edited']);
+            $comment->is_edited = true;
+        }
+        else{
+            Log::info('comment will be created');
+            $comment = new Comment;
+            $comment->is_edited = false;
+        }    
+            $comment->content = $validData['content'];
+            $comment->post_id = $request['post']; // fixed
+            $comment->user_id = $request['user']; // fixed
+            $comment->save();
 
+            session()->flash('message', 'Thank you for your AJAX translation!');
+            $comment['user_id'] = User::findOrFail($comment['user_id'])->name;
+       
         return $comment;
         
     }

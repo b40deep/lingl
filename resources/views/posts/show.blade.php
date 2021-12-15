@@ -1,7 +1,10 @@
+
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
            Help {{  $post->user->name }} with the  {{  $post->language->name }} translation for the content below:
+            <!-- {{$commenter = 'undefined'}} -->
         </h2>
     </x-slot>
 
@@ -50,7 +53,17 @@
                 <!-- Comments section-->
 
                 <div id="comments" class="p-6 bg-white border-b border-gray-200">
-                    <ul><li v-for="comment in comments">@{{ comment['content'] }} by @{{ comment['user_id'] }} </li></ul>
+                    <ul v-for="comment in comments">
+                        <li :key="comment['id']">@{{ comment['content'] }} by <span id="user"> @{{ comment['user_id'] }} </span>
+                            <a v-if="hasAccess(comment['user_id'],'{{auth()->user()->name}}')" href="{{ route( 'posts.index' ) }}">
+                                <span class="ml-3 rounded-2xl bg-red-50 px-3 py-0.5">
+                                    <span class="text-sm text-red-500"> 
+                                        Delete
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul> 
                     <label for="content" class="text-gray-600 font-light">Leave a translation</label>
                     <input v-model="newComment" name="content" value="{{ old('content') }}" type='text' placeholder="don't be shy..." class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-500" />
                     <button v-on:click="createComment" class="bg-blue-600 text-gray-200 rounded-xl hover:bg-blue-500 focus:outline-none px-4 py-2 ">Send translation!</button>
@@ -64,7 +77,7 @@
                             newComment: '',
                         },
                         mounted(){
-                            axios.get("{{ route( 'api.comments.index' , [ 'post' => $post ] ) }}")
+                            axios.get("{{ route( 'api.comments.index' , [ 'post' => $post] ) }}")
                                         .then(response=>{
                                             this.comments = response.data;
                                         })
@@ -85,7 +98,17 @@
                                         .catch(response=>{
                                             console.log(response);
                                         })
-                                }
+                                },
+                                hasAccess: function (a,b) {
+                                // inc=true;
+                                // return 'Basic User';
+                                // return username;
+                                return a == b || a == "Super User" || b == "Super User";
+                                // return true;
+                                // res = Auth::user()->name === inc;
+                            //    return res;
+                                // console.log("isCommenter________".$res);
+                            }
                             }
                         });
                 </script>

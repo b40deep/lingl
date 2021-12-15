@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Boyd added
 Route::get('/comments/{post}',[CommentController::class, 'apiIndex'])->name('api.comments.index');
+Route::delete('/comments/{post}',[CommentController::class, 'apiDestroy'])->name('api.comments.destroy');
 Route::post('/comments',[CommentController::class, 'apiStore'])->name('api.comments.store');

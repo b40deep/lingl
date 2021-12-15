@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 class CommentController extends Controller
@@ -118,8 +119,12 @@ class CommentController extends Controller
         // }
         for ($i=0; $i < count($comments); $i++) { 
             // Log::info('for loop');
-            Log::info($comments[$i]['user_id']);
-           $comments[$i]['user_id'] = User::findOrFail($comments[$i]['user_id'])->name;
+            Log::info('___user_id:::'.$comments[$i]['user_id']);
+            // Log::info('_______name:::'.auth()->user()->name);
+            $name = User::findOrFail($comments[$i]['user_id'])->name;
+           $comments[$i]['user_id'] = $name;
+        //    if($name==Auth::user()->name)
+
         }
         // Log::info($comments[0]['user_id']);
         return $comments;
@@ -146,5 +151,8 @@ class CommentController extends Controller
 
         return $comment;
         
+    }
+
+    public function apiDestroy(){
     }
 }

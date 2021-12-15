@@ -17,8 +17,8 @@ class CreateAlertsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             #added by b40deep
-            $table->boolean('isRead');
-            $table->longText('a_content');
+            $table->boolean('is_read');
+            $table->longText('content');
             #Fkeys from_user_id to_user_id post_id
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('post_id')->unsigned();

@@ -24,8 +24,8 @@ class AlertFactory extends Factory
     public function definition()
     {
         return [
-            'isRead'  => $this->faker->boolean(),
-            'a_content'  => $this->faker->paragraph(2),
+            'is_read'  => $this->faker->boolean(),
+            'content'  => $this->faker->paragraph(2),
             #Fkeys
             'post_id'  => Post::get()->random()->id,
             'user_id'  => User::get()->random()->id,

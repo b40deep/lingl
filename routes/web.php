@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AlertController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ require __DIR__.'/auth.php';
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index'); //get posts list
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create'); //page to create new post
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); //store the new post
+
+// Route::get('/alerts', [AlertController::class, 'index'])->name('alerts.index'); //get alerts list and render homepage
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store'); //ask controller to store new comment
 // Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy'); //delete the comment

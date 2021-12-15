@@ -37,24 +37,33 @@
                         </a>
                     </li>
                 </ul>
-<!-- 
-                <a href="{{ route( 'posts.create' ) }}"> 
-                    <div class="p-2 px-10 bg-white border-b border-gray-200">
-                        So-and-so has helped you translate your request
-                    </div>
-                </a>
+                <!-- 
                 <a href="{{ route( 'posts.create' ) }}"> 
                     <div class="p-2 px-10 bg-white border-b border-gray-200">
                         So-and-so has helped you translate your request
                     </div>
                 </a> -->
             </div>
-            
+        </div>
 
-                        
-                                </div>
-                            </div>
-                        </x-app-layout>
+        <div id="alerts" class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <a  href=""> 
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        Need inspiration today? Here's a free (dependency-injected) Kanye quote:
+                    </div>
+                </a>
+                <a href=""> 
+                    <div class="p-6  bg-white border-b border-gray-200">
+                        {{$t1 = app()->make('translate')->helper();}}
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+    </div>
+</x-app-layout>
 
             <script>
                     var app = new Vue({

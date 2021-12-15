@@ -4,6 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AlertController;
+use App\Translate;
+
+
+
+// Singleton things. added by b40deep
+app()->singleton('translate', function ($app) {
+    return new Translate();
+});
+
+// $t1 = app()->make('translate')->helper();
+// dd($t1);
 
 /*
 |--------------------------------------------------------------------------

@@ -96,10 +96,22 @@ class AlertController extends Controller
         $alerts = User::findOrFail($request['user_id'])->alerts;
         for ($i=0; $i < count($alerts); $i++) { 
             $post = Post::findOrFail($alerts[$i]['user_id'])->content; //keeping post_id and replacing user_id with post contents preview
-           $alerts[$i]['user_id'] = substr($post, 0, 10);
+           $alerts[$i]['user_id'] = substr($post, 0, 50);
         }
         Log::info('all alerts '.$alerts);
         return $alerts;
         // return view('dashboard', ['alerts' => $alerts]);
     }
+
+        public static function apiStore( $user,  $post, $content){
+            Log::info('store alerts '.$user." x ".$post." x ".$content);
+            $alert = new Alert;
+            $alert->is_read = false;
+            $alert->content = $content;
+            $alert->post_id = $post; // fixed
+            $alert->user_id = $user; // fixed
+            $alert->save();
+            Log::info('alert has been created');
+        }
+
 }

@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AlertController;
 
 
 class CommentController extends Controller
@@ -160,7 +161,12 @@ class CommentController extends Controller
 
             session()->flash('message', 'Thank you for your AJAX translation!');
             $comment['user_id'] = User::findOrFail($comment['user_id'])->name;
+            $alertuser = Post::findOrFail($comment['post_id'])->user->id;
        
+            // do not try this at home!!!
+            // app('App\Http\Controllers\AlertController')->apiStore($request['user'], $request['post'], "New translation available!");
+            AlertController::apiStore($alertuser, $request['post'], "New translation available!");
+
         return $comment;
         
     }

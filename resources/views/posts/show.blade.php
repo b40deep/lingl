@@ -55,18 +55,27 @@
                 <div id="comments" class="p-6 bg-white border-b border-gray-200">
                     <ul v-for="comment in comments">
                         <li :key="comment['id']">@{{ comment['content'] }} by <span id="user"> @{{ comment['user_id'] }} </span>
-                            <a v-if="hasAccess(comment['user_id'],'{{auth()->user()->name}}')" href="{{ route( 'posts.index' ) }}">
+                        <span v-if="hasAccess(comment['user_id'],'{{auth()->user()->name}}')">
+                            <a v-on:click="editComment(comment['id'])" href="#comments">
+                                <span class="ml-3 rounded-2xl bg-red-50 px-3 py-0.5">
+                                    <span class="text-sm text-red-500"> 
+                                        Edit
+                                    </span>
+                                </span>
+                            </a>
+                            <a v-on:click="deleteComment(comment['id'])" href="#comments">
                                 <span class="ml-3 rounded-2xl bg-red-50 px-3 py-0.5">
                                     <span class="text-sm text-red-500"> 
                                         Delete
                                     </span>
                                 </span>
                             </a>
+                        </span>
                         </li>
                     </ul> 
                     <label for="content" class="text-gray-600 font-light">Leave a translation</label>
                     <input v-model="newComment" name="content" value="{{ old('content') }}" type='text' placeholder="don't be shy..." class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-green-500" />
-                    <button v-on:click="createComment" class="bg-blue-600 text-gray-200 rounded-xl hover:bg-blue-500 focus:outline-none px-4 py-2 ">Send translation!</button>
+                    <button v-on:click="createComment('{{auth()->user()->id}}')" class="bg-blue-600 text-gray-200 rounded-xl hover:bg-blue-500 focus:outline-none px-4 py-2 ">Send translation!</button>
                     <a href=" {{ route( 'posts.index' ) }} " type="button" class="border border-gray-400 text-gray-600 hover:bg-gray-600 hover:text-gray-100 rounded-xl px-4 py-2 ml-3">Maybe next time...</a>
                 </div>
                 <script>
@@ -77,19 +86,23 @@
                             newComment: '',
                         },
                         mounted(){
-                            axios.get("{{ route( 'api.comments.index' , [ 'post' => $post] ) }}")
-                                        .then(response=>{
-                                            this.comments = response.data;
-                                        })
-                                        .catch(response=>{
-                                            console.log(response);
-                                        })
+                            this.getComments()
                                 },
                         methods:{
-                            createComment:function(){
+                            getComments:function () {
+                                axios.get("{{ route( 'api.comments.index' , [ 'post' => $post] ) }}")
+                                            .then(response=>{
+                                                this.comments = response.data;
+                                            })
+                                            .catch(response=>{
+                                                console.log(response);
+                                            })    
+                                },
+                            createComment:function(uid){
                                 axios.post("{{ route( 'api.comments.store' , [ 'post' => $post ] ) }}",
                                         {
-                                            content:this.newComment
+                                            content:this.newComment,
+                                            user:uid
                                         })
                                         .then(response=>{                                            
                                             this.comments.push(response.data);
@@ -99,16 +112,29 @@
                                             console.log(response);
                                         })
                                 },
-                                hasAccess: function (a,b) {
-                                // inc=true;
-                                // return 'Basic User';
-                                // return username;
-                                return a == b || a == "Super User" || b == "Super User";
-                                // return true;
-                                // res = Auth::user()->name === inc;
-                            //    return res;
-                                // console.log("isCommenter________".$res);
-                            }
+                            editComment:function(commentx){
+                                        alert('edit comment'+ commentx);
+                                },
+                            deleteComment:function(commentx){
+                                        // alert('delete comment'+ commentx);
+                                        axios.post("{{ route( 'api.comments.del' ) }}",
+                                        {
+                                            content:commentx
+                                        })
+                                        .then(response=>{                                            
+                                            // console.log(response.data);
+                                            // console.log(response);
+                                            response ? this.getComments() : null;
+                                        })
+                                        .catch(response=>{
+                                            console.log(response);
+                                        })
+                                },
+                            hasAccess: function (a,b) {
+                            // return 'Basic User';
+                            return a === b || b === "Super User";
+                            // return true;
+                                }
                             }
                         });
                 </script>

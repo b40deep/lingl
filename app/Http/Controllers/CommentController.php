@@ -101,7 +101,7 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
         //
     }
@@ -110,6 +110,8 @@ class CommentController extends Controller
 
     public function apiIndex(Post $post)
     {
+            Log::info('loading comments...');
+
         // $comments = Comment::all();
         $comments = $post->comments;
         // foreach ($comments as $comment ) {
@@ -119,7 +121,7 @@ class CommentController extends Controller
         // }
         for ($i=0; $i < count($comments); $i++) { 
             // Log::info('for loop');
-            Log::info('___user_id:::'.$comments[$i]['user_id']);
+            // Log::info('___user_id:::'.$comments[$i]['user_id']);
             // Log::info('_______name:::'.auth()->user()->name);
             $name = User::findOrFail($comments[$i]['user_id'])->name;
            $comments[$i]['user_id'] = $name;
@@ -133,7 +135,7 @@ class CommentController extends Controller
     public function apiStore(Request $request){
         // Log::info('we got this far');
         // Log::info($request['post']. $request['content']);
-        // Log::info($request['content']);
+        // Log::info('user '.$request['user']);
         
         $validData = $request->validate([
             'content' => 'required|max:200'
@@ -142,8 +144,8 @@ class CommentController extends Controller
         $comment = new Comment;
         $comment->content = $validData['content'];
         $comment->is_edited = false;
-        $comment->post_id = $request['post']; // need to update this
-        $comment->user_id = 1; // need to update this 
+        $comment->post_id = $request['post']; // fixed
+        $comment->user_id = $request['user']; // fixed
         $comment->save();
 
         session()->flash('message', 'Thank you for your AJAX translation!');
@@ -153,6 +155,13 @@ class CommentController extends Controller
         
     }
 
-    public function apiDestroy(){
+    public function apiDestroy(Request $request){
+        Log::info('destroying comment '.$request['content']);
+        
+        $comment = Comment::findOrFail($request['content']);
+        $comment->delete();
+        Log::info('done destroying');
+
+        return true;
     }
 }

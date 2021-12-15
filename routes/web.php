@@ -30,6 +30,7 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); //store the new post
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store'); //ask controller to store new comment
+// Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy'); //delete the comment
 
 //below should be absolute last so as not to hijack longer links
 // routes must always come BEFORE variables. e.g., posts/create before posts/{id}

@@ -67,8 +67,8 @@ class PostController extends Controller
         $post->is_edited = false;
         // $post->img_url = $fileNameToStore==null?null:'/uploads/'.$fileNameToStore;
         $post->img_alt_text = $filename==null?null:'an image named '.$filename;
-        $post->user_id = 1; 
-        $post->language_id = 3;
+        $post->user_id = auth()->user()->id; 
+        $post->language_id =  auth()->user()->language()->id;
         $post->save();
 
         Image::create([

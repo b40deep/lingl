@@ -53,7 +53,7 @@ class CommentController extends Controller
         $comment->content = $validData['content'];
         $comment->is_edited = false;
         $comment->post_id = $request['post']; // need to update this
-        $comment->user_id = 1; // need to update this 
+        $comment->user_id = auth()->user()->id; // need to update this 
         $comment->save();
 
         session()->flash('message', 'Thank you for your translation!');

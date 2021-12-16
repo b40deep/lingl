@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Image;
+use App\Models\Language;
 
 class UserTableSeeder extends Seeder
 {
@@ -17,6 +18,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
         //superuser
         User::create([

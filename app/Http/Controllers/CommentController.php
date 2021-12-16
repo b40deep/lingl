@@ -41,6 +41,8 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('user_logged_in');
+
         // dd($request['post']); //passes the post id not the actual post.
         // dd($request['content']); 
         //it works

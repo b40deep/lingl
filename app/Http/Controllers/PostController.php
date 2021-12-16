@@ -18,6 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        $this->authorize('user_logged_in');
         // var_dump('posts index___'.Post::with('tags','images')->get()->first()->tags );
         // Log::info('posts index___'.Post::with('images')->get()->tags );
             
@@ -33,6 +34,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('user_logged_in');
+
         return view('posts.create');
     }
 
@@ -44,6 +47,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('user_logged_in');
+
         // dd($request['content']); it works
         $validData = $request->validate([
             'content' => 'required|max:200',
@@ -96,6 +101,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $this->authorize('user_logged_in');
+
         // $post = Post::findOrFail($id);
 
         View::create([             //creating a POST VIEW Count, not some PHP class
@@ -114,6 +121,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('user_logged_in');
+
         // $post = Post::findOrFail($id);
         return view('posts.edit', ['post' => $post]);
     }
@@ -127,6 +136,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('user_logged_in');
+
         // dd($request['p_content']); it works        
         $validData = $request->validate([
             'content' => 'required|max:200',
@@ -171,6 +182,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('user_logged_in');
+
         // $post = Post::findOrFail($id);
         $post->delete();
 

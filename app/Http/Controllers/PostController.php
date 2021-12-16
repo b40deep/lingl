@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Image;
 use App\Models\View;
+use Illuminate\Support\Facades\Log;
 
 
 class PostController extends Controller
@@ -17,8 +18,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        // var_dump('posts index___'.Post::with('tags','images')->get()->first()->tags );
+        // Log::info('posts index___'.Post::with('images')->get()->tags );
+            
         // $posts = Post::all();
-        $posts = Post::with('images')->paginate(6);
+        $posts = Post::with('images','tags')->paginate(6);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -69,13 +73,15 @@ class PostController extends Controller
         // $post->img_url = $fileNameToStore==null?null:'/uploads/'.$fileNameToStore;
         $post->img_alt_text = $filename==null?null:'an image named '.$filename;
         $post->user_id = auth()->user()->id; 
-        $post->language_id =  auth()->user()->language()->id;
+        $post->language_id =  auth()->user()->language->id;
         $post->save();
+        $post->tags()->attach($post->id,['tag_id' => 1]);
+        $post->tags()->attach($post->id,['tag_id' => auth()->user()->language->id]);
 
         Image::create([
             'imageable_id' => $post->id,
             'imageable_type' => 'App\Models\Post',
-            'image_url' => $fileNameToStore==null?null:'/uploads/'.$fileNameToStore
+            'image_url' => $fileNameToStore==null?"":'/uploads/'.$fileNameToStore
         ]);
 
         session()->flash('message', 'Yay, your post was created!');
@@ -91,7 +97,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // $post = Post::findOrFail($id);
-        View::create([
+
+        View::create([             //creating a POST VIEW Count, not some PHP class
             'post_id' => $post->id,
             'user_id' => auth()->user()->id,
         ]);

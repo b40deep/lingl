@@ -32,4 +32,10 @@ class Post extends Model
     public function views(){
         return $this->hasMany(View::class);
     }
+
+    public function tags(){
+        // , 'post_tag', 'post-id', 'tag_id'
+        return $this->belongsToMany(Tag::class);
+    }
+
 }

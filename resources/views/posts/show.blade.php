@@ -39,6 +39,13 @@
                             {{ $post->views->unique('user_id')->count() }} unique post views to date, {{ $post->views->count() }} in total.
                         </span>
                     </span>
+                    @foreach($post->tags->unique() as $tag)
+                    <span class="ml-3 rounded-2xl bg-gray-100 px-3 py-0.5">
+                        <span class="text-sm text-gray-500"> 
+                        {{ $tag->name }}
+                        </span>
+                    </span>
+                    @endforeach
                     @can('posts_edit', $post)
                     <a href=" {{ route( 'posts.edit', [ 'post' => $post ] ) }} ">
                     <span class="ml-3 rounded-2xl bg-blue-50 px-3 py-0.5">

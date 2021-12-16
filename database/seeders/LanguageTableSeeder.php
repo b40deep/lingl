@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Language;
 use App\Models\User;
+use App\Models\Tag;
 
 class LanguageTableSeeder extends Seeder
 {
@@ -36,5 +37,14 @@ class LanguageTableSeeder extends Seeder
                             'name' => 'Swahili',
                             'origin' => 'Africa',
                         ]);
+        Tag::create([
+                        'name' => 'English'
+                    ]);
+        Tag::create([
+                        'name' => 'Malay'
+                    ]);
+        Tag::create([
+                        'name' => 'Swahili'
+                    ]);
     }
 }

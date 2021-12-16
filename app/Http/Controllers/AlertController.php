@@ -98,13 +98,18 @@ class AlertController extends Controller
             $post = Post::findOrFail($alerts[$i]['user_id'])->content; //keeping post_id and replacing user_id with post contents preview
            $alerts[$i]['user_id'] = substr($post, 0, 50);
         }
-        Log::info('all alerts '.$alerts);
+        // Log::info('all alerts '.$alerts);
         return $alerts;
         // return view('dashboard', ['alerts' => $alerts]);
     }
 
         public static function apiStore( $user,  $post, $content){
             Log::info('store alerts '.$user." x ".$post." x ".$content);
+
+            //validating headless api data 
+            if ($user==null || $post==null || $content==null)
+            return null;
+
             $alert = new Alert;
             $alert->is_read = false;
             $alert->content = $content;

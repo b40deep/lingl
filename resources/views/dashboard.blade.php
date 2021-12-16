@@ -13,7 +13,7 @@
                         <div class="lg:w-1/2 md:min-w-10/10 sm:min-w-10/10 px-2 ">
                             <div class="bg-white px-4 py-4 flex my-2 rounded-lg shadow">
                                 <div class="w-40 pr-5">
-                                        <img class="rounded" src=" {{auth()->user()->avatar_url}} ">
+                                        <img class="rounded" src=" {{auth()->user()->images->first()->image_url}} ">
                                 </div>
                                 <div class="flex-1">
                                     <h2 class="font-bold text-gray-700 my-0">Hello {{auth()->check()?auth()->user()->name:null}} </h2>

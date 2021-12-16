@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Image;
 
 class UserTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+
         //superuser
         User::create([
             'name' => 'Super User',
@@ -28,7 +30,16 @@ class UserTableSeeder extends Seeder
             'avatar_url' => 'https://picsum.photos/id/1010/300/300.jpg',
             #Fkeys
             'language_id' => '2',
-        ]);
+            ])->each(
+                            function ($user, $id){
+                                $user->images()->saveMany(Image::factory()->count(1)->create([
+                                    'imageable_type' => 'App\Models\User',
+                                    'imageable_id' => $id,
+                                    'image_url' => 'https://picsum.photos/id/1010/300/300.jpg'
+                                ]));
+                                // $user->comments()->saveMany(Comment::factory()->count(10)->create());
+                            }
+                        );
         
         //basic user
         User::create([
@@ -42,11 +53,30 @@ class UserTableSeeder extends Seeder
             'avatar_url' => 'https://picsum.photos/id/1003/300/300.jpg',
             #Fkeys
             'language_id' => '3',
-        ]);
+            ])->each(
+                        function ($user, $id){
+                            $user->images()->saveMany(Image::factory()->count(1)->create([
+                                'imageable_type' => 'App\Models\User',
+                                'imageable_id' => $id,
+                                'image_url' => 'https://picsum.photos/id/1003/300/300.jpg'
+                            ]));
+                            // $user->comments()->saveMany(Comment::factory()->count(10)->create());
+                        }
+                    );
 
         User::factory()
                 ->count(3)
-                ->create();
+                ->create()
+                ->each(
+                    function ($user, $id){
+                        $user->images()->saveMany(Image::factory()->count(1)->create([
+                            'imageable_type' => 'App\Models\User',
+                            'imageable_id' => $id,
+                            'image_url' => "https://picsum.photos/id/".rand(0,1000)."/".(rand(0, 1)?"400":"600")."/".(rand(0, 1)?"400":"600").".jpg"
+                        ]));
+                        // $user->comments()->saveMany(Comment::factory()->count(10)->create());
+                    }
+                );
         
     }
 }

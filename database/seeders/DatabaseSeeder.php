@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this -> call(PostTableSeeder::class);
         $this -> call(CommentTableSeeder::class);
         $this -> call(AlertTableSeeder::class);
+        $this -> call(ImageTableSeeder::class);
 
         // $lugi = new Language;
         // $lugi->name='Luganda';

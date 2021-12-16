@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Image;
+use App\Models\View;
 
 
 class PostController extends Controller
@@ -90,6 +91,11 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // $post = Post::findOrFail($id);
+        View::create([
+            'post_id' => $post->id,
+            'user_id' => auth()->user()->id,
+        ]);
+
         return view('posts.show', ['post' => $post]);
     }
 

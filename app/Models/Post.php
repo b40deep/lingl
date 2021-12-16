@@ -28,4 +28,8 @@ class Post extends Model
     public function images(){
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    public function views(){
+        return $this->hasMany(View::class);
+    }
 }

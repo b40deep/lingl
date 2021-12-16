@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder
             'remember_token' => 'toktoktokn',
             #added by b40deep
             'is_admin' => 1,
-            'avatar_url' => 'https://i.picsum.photos/id/1010/300/300.jpg',
+            'avatar_url' => 'https://picsum.photos/id/1010/300/300.jpg',
             #Fkeys
             'language_id' => '2',
         ]);
@@ -39,7 +39,7 @@ class UserTableSeeder extends Seeder
             'remember_token' => 'toktoktokn',
             #added by b40deep
             'is_admin' => 0,
-            'avatar_url' => 'https://i.picsum.photos/id/1010/300/300.jpg',
+            'avatar_url' => 'https://picsum.photos/id/1003/300/300.jpg',
             #Fkeys
             'language_id' => '3',
         ]);

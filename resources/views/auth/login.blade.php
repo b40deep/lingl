@@ -1,8 +1,10 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
+<x-guest-layout >
+    <x-auth-card >                
+
+        <x-slot name="logo" >
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
+                the learning's on the other side of this screen :)
             </a>
         </x-slot>
 

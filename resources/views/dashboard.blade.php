@@ -7,6 +7,37 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"> -->
+                <!-- <div class="p-6 bg-white border-b border-gray-200"> -->
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="lg:w-1/2 md:min-w-10/10 sm:min-w-10/10 px-2 ">
+                            <div class="bg-white px-4 py-4 flex my-2 rounded-lg shadow">
+                                <div class="w-40 pr-5">
+                                        <img class="rounded" src="https://via.placeholder.com/600x600.png/00dd88?text=soli+deo+gloria">
+                                </div>
+                                <div class="flex-1">
+                                    <h2 class="font-bold text-gray-700 my-0">Hello {{auth()->check()?auth()->user()->name:null}} </h2>
+                                    <div class="pt-4">Welcome to lingl :) We're glad to have you drop by. Take a look around, lingo abounds.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 md:min-w-10/10 sm:min-w-10/10 px-2 ">
+                            <div class="bg-white px-4 py-4 flex my-2 rounded-lg shadow">
+                                <div class="w-40 pr-5">
+                                        <img class="rounded" src="https://www.programmableweb.com/sites/default/files/styles/article_profile_150x150/public/kanye.jpg?itok=0oByPCjX">
+                                </div>
+                                <div class="flex-1">
+                                    <h2 class="font-bold text-gray-700 my-0">Free (dependency-injected) Kanye quote:</h2>
+                                    <div class="pt-4">{{$t1 = app()->make('translate')->helper();}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            <!-- </div> -->
+        </div>
+
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <a href="{{ route( 'posts.index' ) }}">
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -21,7 +52,7 @@
             </div>
         </div>
 
-        <div id="alerts" class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
+        <div id="alerts" class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <a v-on:click="getAlerts('{{auth()->user()->id}}')" href="#alerts"> 
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -45,21 +76,17 @@
                 </a> -->
             </div>
         </div>
-
-        <div id="alerts" class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
+<!-- 
+        <div id="alerts" class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <a  href=""> 
                     <div class="p-6 bg-white border-b border-gray-200">
                         Need inspiration today? Here's a free (dependency-injected) Kanye quote:
                     </div>
-                </a>
-                <a href=""> 
                     <div class="p-6  bg-white border-b border-gray-200">
                         {{$t1 = app()->make('translate')->helper();}}
                     </div>
-                </a>
             </div>
-        </div>
+        </div> -->
 
         
     </div>

@@ -26,7 +26,7 @@ class PostFactory extends Factory
         $x = $this->faker->randomElement([600, 400]);
         $y = $this->faker->randomElement([600, 400]);
         $link = $this->faker->imageUrl($x, $y, null, false, 'soli deo gloria', false);
-        $url = $this->faker->randomElement([$link, null]);
+        $url = "https://picsum.photos/id/".$this->faker->numberBetween(0,1000)."/".$x."/".$y.".jpg";
         
         return [
             'is_edited'  => $this->faker->boolean(),

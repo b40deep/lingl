@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Image;
 
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         // $posts = Post::all();
-        $posts = Post::paginate(6);
+        $posts = Post::with('images')->paginate(6);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -66,9 +67,15 @@ class PostController extends Controller
         $post->is_edited = false;
         $post->img_url = $fileNameToStore==null?null:'/uploads/'.$fileNameToStore;
         $post->img_alt_text = $filename==null?null:'an image named '.$filename;
-        $post->user_id = 1;
+        $post->user_id = 1; 
         $post->language_id = 3;
         $post->save();
+
+        Image::create([
+            'imageable_id' => $post->id,
+            'imageable_type' => 'App\Models\Post',
+            'image_url' => $fileNameToStore==null?null:'/uploads/'.$fileNameToStore
+        ]);
 
         session()->flash('message', 'Yay, your post was created!');
         return redirect()->route('posts.index');

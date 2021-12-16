@@ -24,4 +24,8 @@ class Post extends Model
     public function alerts(){
         return $this->hasMany(Alert::class);
     }
+
+    public function images(){
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

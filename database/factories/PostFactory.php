@@ -29,7 +29,7 @@ class PostFactory extends Factory
         
         return [
             'is_edited'  => $this->faker->boolean(),
-            'img_url'  => $url,
+            // 'img_url'  => $url,
             'img_alt_text' => $url==null ? null : $this->faker->realText($maxNbChars = 40),
             'content'  => $this->faker->realText($maxNbChars = 200),
             // 'user_id'  => $this->faker->numberBetween(1,5),

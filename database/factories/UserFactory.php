@@ -32,7 +32,7 @@ class UserFactory extends Factory
             #added by b40deep
             // 'is_admin' => $this->faker->randomElement(['admin', 'user', 'guest']),
             'is_admin' => $this->faker->numberBetween(0,1),
-            'avatar_url' => "https://picsum.photos/id/".$this->faker->numberBetween(0,1000)."/300/300.jpg",
+            // 'avatar_url' => "https://picsum.photos/id/".$this->faker->numberBetween(0,1000)."/300/300.jpg",
             // 'avatar_url' => $this->faker->imageUrl(20,20,'faces'),
             #Fkeys
             'language_id' => Language::get()->random()->id,

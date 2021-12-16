@@ -65,7 +65,7 @@ class PostController extends Controller
         $post = new Post;
         $post->content = $validData['content'];
         $post->is_edited = false;
-        $post->img_url = $fileNameToStore==null?null:'/uploads/'.$fileNameToStore;
+        // $post->img_url = $fileNameToStore==null?null:'/uploads/'.$fileNameToStore;
         $post->img_alt_text = $filename==null?null:'an image named '.$filename;
         $post->user_id = 1; 
         $post->language_id = 3;
@@ -141,7 +141,7 @@ class PostController extends Controller
         $post->content = $validData['content'];
         $post->is_edited = true;
         if($filename!=null){
-            $post->img_url = '/uploads/'.$fileNameToStore;
+            // $post->img_url = '/uploads/'.$fileNameToStore;
             $post->img_alt_text = 'an image named '.$filename;
         }
         $post->update();

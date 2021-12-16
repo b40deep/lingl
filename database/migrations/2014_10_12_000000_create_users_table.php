@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             #added by b40deep
             $table->string('is_admin')->nullable();
-            $table->string('avatar_url')->nullable();
+            // $table->string('avatar_url')->nullable();
             #Fkeys
             $table->bigInteger('language_id')->unsigned()->nullable();
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');

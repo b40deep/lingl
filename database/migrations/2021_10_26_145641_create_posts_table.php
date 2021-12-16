@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             #added by b40deep
             $table->boolean('is_edited');
-            $table->string('img_url')->nullable();
+            // $table->string('img_url')->nullable();
             $table->string('img_alt_text')->nullable();
             $table->longText('content');
             #FKeys user_id lang_id

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Image;
+use App\Models\Language;
+use Illuminate\Support\Str;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -43,9 +47,18 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'remember_token' => Str::random(10),
+            'is_admin' => 0,
+            'language_id' => Language::get()->random()->id,
         ]);
 
         event(new Registered($user));
+
+        $user->images()->saveMany(Image::factory()->count(1)->create([
+            'imageable_type' => 'App\Models\User',
+            'imageable_id' => $user->id,
+            'image_url' => "https://picsum.photos/id/".rand(0,1000)."/300/300.jpg"
+        ]));
 
         Auth::login($user);
 

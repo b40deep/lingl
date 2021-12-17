@@ -20,7 +20,6 @@
                     @endif
                      <div class="text-lg">
                         {{$post->content }}
-                        Post details go here:
                     </div> 
                     <div class="flex justify-end text-sm">
                         <span class="ml-3 rounded-2xl bg-gray-100 px-3 py-0.5">

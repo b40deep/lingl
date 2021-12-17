@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    @if(auth()->user()->images->first()===null)
+    echo("reached here");
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"> -->
@@ -12,9 +16,14 @@
                     <div class="flex flex-wrap -mx-2">
                         <div class="lg:w-1/2 md:min-w-10/10 sm:min-w-10/10 px-2 ">
                             <div class="bg-white px-4 py-4 flex my-2 rounded-lg shadow">
+                                @if(auth()->user()->images->first()!=null)
                                 <div class="w-40 pr-5">
                                         <img class="rounded" src=" {{auth()->user()->images->first()->image_url}} ">
                                 </div>
+                                @else
+                                <div class="w-40 pr-5">
+                                        <img class="rounded" src=" https://picsum.photos/id/101/100/100.jpg ">
+                                @endif
                                 <div class="flex-1">
                                     <h2 class="font-bold text-gray-700 my-0">Hello {{auth()->check()?auth()->user()->name:null}} </h2>
                                     <div class="pt-4">Welcome to lingl :) We're glad to have you drop by and hope you're getting better at {{auth()->user()->language->name}}. Take a look around, lingl abounds.</div>

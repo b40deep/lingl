@@ -170,6 +170,13 @@ class PostController extends Controller
         }
         $post->update();
 
+        $image = Image::where([ ['imageable_id','=',$post->id] , ['imageable_type','=','App\Models\Post'] ])->get()->first();
+        
+        // dd($image->image_url);
+        $image->image_url = $fileNameToStore==null?"":"/uploads/".$fileNameToStore;
+        
+        $image->update();
+
         session()->flash('message', 'Yay, your post was udpated!');
         return redirect()->route('posts.index');
     }

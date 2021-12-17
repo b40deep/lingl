@@ -18,12 +18,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $this->authorize('user_logged_in');
         // var_dump('posts index___'.Post::with('tags','images')->get()->first()->tags );
         // Log::info('posts index___'.Post::with('images')->get()->tags );
+        $this->authorize('user_logged_in');
             
         // $posts = Post::all();
-        $posts = Post::with('images','tags')->paginate(6);
+        $posts = Post::with('images','tags')->paginate(6); //pagination code
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -169,11 +169,15 @@ class PostController extends Controller
             $post->img_alt_text = 'an image named '.$filename;
         }
         $post->update();
-
+        
         $image = Image::where([ ['imageable_id','=',$post->id] , ['imageable_type','=','App\Models\Post'] ])->get()->first();
         
         // dd($image->image_url);
-        $image->image_url = $fileNameToStore==null?"":"/uploads/".$fileNameToStore;
+        if($filename!=null){
+            // $post->img_url = '/uploads/'.$fileNameToStore;
+            // $post->img_alt_text = 'an image named '.$filename;
+            $image->image_url = "/uploads/".$fileNameToStore;
+        }
         
         $image->update();
 

@@ -5,9 +5,6 @@
         </h2>
     </x-slot>
 
-    @if(auth()->user()->images->first()===null)
-    echo("reached here");
-    @endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
